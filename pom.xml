@@ -144,8 +144,10 @@
                 <configuration>
                     <excludes>
                         <exclude>org/example/pojo/*</exclude>
+                        <exclude>org/example/pojo/embeddable/*</exclude>
                         <exclude>org/example/Runner.class</exclude>
                         <exclude>org/example/utils/Creater.class</exclude>
+                        <exclude>org/example/Constants.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>

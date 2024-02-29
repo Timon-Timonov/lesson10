@@ -9,4 +9,11 @@ public class HomeTaskDaoImpl extends DaoImpl<HomeTask, Long> implements HomeTask
 
         super(HomeTask.class);
     }
+
+    @Override
+    public HomeTask update(HomeTask object) {
+
+        Long id = super.update(object).getId();
+        return super.get(id);
+    }
 }

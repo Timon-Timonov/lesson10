@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-//@Table(name = "work_task")
 @DiscriminatorValue("W")
 public class WorkTask extends Task {
 

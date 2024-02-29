@@ -18,9 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.example.MockUtil.getAddress;
 import static org.junit.jupiter.api.Assertions.*;
@@ -102,11 +100,13 @@ class AdminServiceImplTest {
         HomeTaskDao homeTaskDao = new HomeTaskDaoImpl();
         HomeTask homeTask = MockUtil.getHomeTask(MockConstants.I_5);
         HomeTask homeTask1 = homeTaskDao.create(homeTask);
+
         homeTask1.setStartDate(Timestamp.valueOf(LocalDateTime.now()));
         homeTask1.setEndDate(Timestamp.valueOf(LocalDateTime.now()));
         homeTask1.setName(MockConstants.NEW_NAME);
         HomeTask homeTask2 = adminServise.updateHomeTask(homeTask1);
         assertEquals(homeTask2, homeTaskDao.get(homeTask2.getId()));
+        homeTaskDao.closeManager();
     }
 
 
@@ -133,11 +133,13 @@ class AdminServiceImplTest {
     }
 
     @Test
-    void getAllHomeTasks(){
+    void getAllHomeTasks() {
 
         List<HomeTask> list = new HomeTaskDaoImpl().getAll();
         List<HomeTask> list1 = adminServise.getAllHomeTasks();
         assertEquals(list.size(), list1.size());
+        assertTrue(list.containsAll(list1));
+
     }
 
     @Test

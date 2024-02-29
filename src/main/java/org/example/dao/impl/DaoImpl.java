@@ -24,9 +24,10 @@ public abstract class DaoImpl<T, R> implements DAO<T, R> {
     public T create(T object) {
 
         if (object != null) {
-            em.getTransaction().begin();
-            em.persist(object);
-            em.getTransaction().commit();
+            getEm().getTransaction().begin();
+            getEm().persist(object);
+            getEm().getTransaction().commit();
+            closeManager();
         }
         return object;
     }
@@ -34,16 +35,19 @@ public abstract class DaoImpl<T, R> implements DAO<T, R> {
     @Override
     public T get(R id) throws EntityNotFoundException {
 
-        return em.find(clazz, id);
+        return getEm().find(clazz, id);
     }
 
     @Override
     public T update(T object) {
 
-        T t;
-        em.getTransaction().begin();
-        t = em.merge(object);
-        em.getTransaction().commit();
+        T t = null;
+        if (object != null) {
+            getEm().getTransaction().begin();
+            t = getEm().merge(object);
+            getEm().getTransaction().commit();
+            closeManager();
+        }
         return t;
     }
 
@@ -51,17 +55,17 @@ public abstract class DaoImpl<T, R> implements DAO<T, R> {
     public void delete(R id) throws EntityNotFoundException {
 
         if (id != null) {
-            em.getTransaction().begin();
-            Object rootEntity = em.getReference(clazz, id);
-            em.remove(rootEntity);
-            em.getTransaction().commit();
+            getEm().getTransaction().begin();
+            Object rootEntity = getEm().getReference(clazz, id);
+            getEm().remove(rootEntity);
+            getEm().getTransaction().commit();
         }
     }
 
     @Override
     public List<T> getAll() {
 
-        TypedQuery<T> query = em.createQuery(getAllSqlString(), clazz);
+        TypedQuery<T> query = getEm().createQuery(getAllSqlString(), clazz);
         return query.getResultList();
     }
 

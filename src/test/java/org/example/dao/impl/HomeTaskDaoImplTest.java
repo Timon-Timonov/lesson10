@@ -48,7 +48,7 @@ class HomeTaskDaoImplTest {
         assertNotNull(homeTask);
         assertNotNull(homeTask.getId());
         assertNull(homeTask.getEndDate());
-        assertNull(homeTask.getStartDate());
+        assertNotNull(homeTask.getStartDate());
 
         assertEquals(MockUtil.getAddress(MockConstants.I_1), homeTask.getAddress());
         assertEquals((MockConstants.HOMETASK_DESCRIPTION + MockConstants.I_1), homeTask.getDescription());
