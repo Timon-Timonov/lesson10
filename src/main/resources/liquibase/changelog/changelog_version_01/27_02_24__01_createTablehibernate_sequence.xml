@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="Timonov_Timon" id="01">
+        <createTable tableName="hibernate_sequence">
+            <column name="next_val" type="bigint"/>
+        </createTable>
+        <insert tableName="hibernate_sequence">
+            <column name="next_val" value="1"/>
+        </insert>
+        <rollback>
+            <dropTable tableName="hibernate_sequence"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Timonov_Timon" id="02">
+        <insert tableName="hibernate_sequence">
+            <column name="next_val" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
+
+
+        <!--
+                create table hibernate_sequence
+                (
+                next_val bigint null
+                );
+
+
+                create sequence hibernate_sequence start with 1 increment by 1 ????
+
+        -->
