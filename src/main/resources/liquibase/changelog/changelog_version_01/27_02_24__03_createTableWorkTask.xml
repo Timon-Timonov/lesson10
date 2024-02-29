@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="Timonov_Timon" id="01">
+        <createTable tableName="work_task">
+            <column name="task_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="cost" type="int"/>
+
+        </createTable>
+        <rollback>
+            <dropTable tableName="home_task"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Timonov_Timon" id="02">
+        <addForeignKeyConstraint baseTableName="work_task"
+                                 baseColumnNames="task_id"
+                                 constraintName="FK946otqxnh343usq0tu8pd06gn"
+                                 referencedTableName="task"
+                                 referencedColumnNames="id"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="FK946otqxnh343usq0tu8pd06gn"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+
+
+        <!--
+
+                create table work_task
+                (
+                cost    int    null,
+                task_id bigint not null
+                primary key,
+                constraint FK946otqxnh343usq0tu8pd06gn
+                foreign key (task_id) references task (id)
+                );
+
+        -->
