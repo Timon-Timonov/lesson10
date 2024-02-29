@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="Timonov_Timon" id="01">
+        <createTable tableName="home_task">
+            <column name="task_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="city" type="varchar(255)"/>
+            <column name="street" type="varchar(255)"/>
+            <column name="end_date" type="datetime(6)"/>
+            <column name="start_date" type="datetime(6)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="home_task"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Timonov_Timon" id="02">
+        <addForeignKeyConstraint baseTableName="home_task"
+                                 baseColumnNames="task_id"
+                                 constraintName="FKnjo5im659d1wyo20hv9vutbgs"
+                                 referencedTableName="task"
+                                 referencedColumnNames="id"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="FKnjo5im659d1wyo20hv9vutbgs"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+
+
+        <!--
+                create table home_task
+                (
+                city       varchar(255) null,
+                street     varchar(255) null,
+                end_date   datetime(6)  null,
+                start_date datetime(6)  null,
+                task_id    bigint       not null
+                primary key,
+                constraint FKnjo5im659d1wyo20hv9vutbgs
+                foreign key (task_id) references task (id)
+                );
+
+        -->
