@@ -5,32 +5,33 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
     <changeSet author="Timonov_Timon" id="01">
-        <createTable tableName="hibernate_sequence">
+        <createTable tableName="hibernate_sequences">
+            <column name="sequence_name" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="next_val" type="bigint"/>
         </createTable>
-        <insert tableName="hibernate_sequence">
-            <column name="next_val" value="1"/>
-        </insert>
         <rollback>
-            <dropTable tableName="hibernate_sequence"/>
+            <dropTable tableName="hibernate_sequences"/>
         </rollback>
     </changeSet>
 
     <changeSet author="Timonov_Timon" id="02">
-        <insert tableName="hibernate_sequence">
-            <column name="next_val" value="1"/>
+        <insert tableName="hibernate_sequences">
+            <column name="sequence_name" value="default"/>
+            <column name="next_val" value="0"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
 
 
-        <!--
-                create table hibernate_sequence
-                (
-                next_val bigint null
-                );
+        <!--create table hibernate_sequences
+        (
+        sequence_name varchar(255) not null
+        primary key,
+        next_val      bigint       null
+        );
 
 
-                create sequence hibernate_sequence start with 1 increment by 1 ????
-
-        -->
+        insert into hibernate_sequences(sequence_name, next_val) values ('default',0)
+-->
