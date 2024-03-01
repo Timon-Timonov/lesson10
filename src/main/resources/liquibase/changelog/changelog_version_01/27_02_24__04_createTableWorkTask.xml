@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="Timonov_Timon" id="01">
+        <createTable tableName="work_task">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="cost" type="int"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="home_task"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+
+        <!--
+
+                create table work_task
+                (
+                id          bigint       not null
+                primary key,
+                description varchar(255) null,
+                name        varchar(255) null,
+                cost        int          null
+                );
+
+        -->
+
+
+
