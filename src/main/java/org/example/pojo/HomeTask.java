@@ -5,7 +5,10 @@ import lombok.experimental.SuperBuilder;
 import org.example.pojo.embeddable.Address;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -19,6 +22,7 @@ import java.sql.Timestamp;
 @DiscriminatorValue("H")
 public class HomeTask extends Task {
 
+    public static final int PRECISSION_OF_TIMESTAMP = 1000;
     private static final long serialVersionUID = 1L;
 
     @Column(name = "start_date")
@@ -30,4 +34,18 @@ public class HomeTask extends Task {
 
     @Embedded
     private Address address;
+
+    public void setStartDate(Timestamp startDate) {
+
+        int nan = startDate.getNanos();
+        startDate.setNanos(nan - nan % PRECISSION_OF_TIMESTAMP);
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+
+        int nan = endDate.getNanos();
+        endDate.setNanos(nan - nan % PRECISSION_OF_TIMESTAMP);
+        this.endDate = endDate;
+    }
 }

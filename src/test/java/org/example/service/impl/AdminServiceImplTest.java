@@ -105,8 +105,8 @@ class AdminServiceImplTest {
         homeTask1.setEndDate(Timestamp.valueOf(LocalDateTime.now()));
         homeTask1.setName(MockConstants.NEW_NAME);
         HomeTask homeTask2 = adminServise.updateHomeTask(homeTask1);
-        assertEquals(homeTask2, homeTaskDao.get(homeTask2.getId()));
-        homeTaskDao.closeManager();
+        assertEquals(new HomeTaskDaoImpl().get(homeTask1.getId()),homeTask2);
+        //homeTaskDao.closeManager();
     }
 
 

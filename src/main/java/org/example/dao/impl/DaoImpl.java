@@ -27,7 +27,7 @@ public abstract class DaoImpl<T, R> implements DAO<T, R> {
             getEm().getTransaction().begin();
             getEm().persist(object);
             getEm().getTransaction().commit();
-            closeManager();
+           // closeManager();
         }
         return object;
     }
@@ -46,7 +46,7 @@ public abstract class DaoImpl<T, R> implements DAO<T, R> {
             getEm().getTransaction().begin();
             t = getEm().merge(object);
             getEm().getTransaction().commit();
-            closeManager();
+            //closeManager();
         }
         return t;
     }
